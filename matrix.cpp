@@ -77,9 +77,10 @@ void Matrix<T>::build_matrix() {
     tmp = this->first;
 
     //Deploy consecutive rows of cells in the Matrix
-    for (int i = 0; i < c;i++) {
+    for (int i = 0; i < c ;i++) {
         Cell<T>* tmp2 = expand_vertically(tmp);
         expand_horizontally_linked_up(tmp2,r);
+        tmp = tmp->down;
     }
 }
 
