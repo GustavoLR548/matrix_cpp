@@ -39,8 +39,8 @@ class Matrix {
 
         //Get
 
-        short get_number_of_columns();
-        short get_number_of_rows();
+        counter get_number_of_columns();
+        counter get_number_of_rows();
 
         //Basic functionalities of the Matrix
 
