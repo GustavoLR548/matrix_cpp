@@ -190,6 +190,18 @@ bool Matrix<T>::insert(T element,int x,int y) {
     return true;
 }
 
+//Fill the matrix with one value
+template <typename T> 
+void Matrix<T>::fill(T element) {
+
+
+    for(Cell<T>* i = this->first; i != NULL ; i = i->down ) 
+        for(Cell<T>* j = i; j != NULL ; j = j->right ) 
+            j->setElement(element);
+    
+    
+}
+
 //Expand the matrix both vertically and horizontally
 template <typename T>
 void Matrix<T>::expand_matrix(int expanded) {

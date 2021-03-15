@@ -25,17 +25,24 @@ class Matrix {
 
     public: 
 
+        //Constructors
+        
         Matrix();
-        ~Matrix();
         Matrix(short n);
         Matrix(short c, short r);
 
+        //Destructor
+        ~Matrix();
+
         //Get
+
         short get_number_of_columns();
         short get_number_of_rows();
 
         //Basic functionalities of the Matrix
+
         void print();
+        void fill(T value);
         T get(int x,int y);
         bool insert(T element,int x,int y);
         void expand_matrix(int expanded);
