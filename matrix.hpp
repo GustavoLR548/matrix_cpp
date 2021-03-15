@@ -2,8 +2,11 @@
 #define matrix_hpp
 
 #include"cell.cpp"
+#include<stdint.h>
 
 int const MIN = 2;
+
+using counter = uint16_t;
 
 template <typename T>
 class Matrix {
@@ -12,8 +15,8 @@ class Matrix {
 
         //Atributes
         Cell<T>* first;
-        short number_of_columns;
-        short number_of_rows;
+        counter number_of_columns;
+        counter number_of_rows;
 
         //Inside functions
         void build_matrix();
