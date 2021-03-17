@@ -240,9 +240,16 @@ void Matrix<T>::expand_matrix_vertically(int expanded, T default_value) {
     Cell<T>* tmp = this->first;
 
     for(/**/; tmp->down != NULL; tmp = tmp->down);
+
+    counter n_horizontal;
+    if(this->number_of_columns == this->number_of_rows) 
+        n_horizontal = expanded +1;
+    else 
+        n_horizontal = (this->number_of_columns-expanded)-1;
+    
     
     for (int i = 0; i < expanded;i++) {
         tmp = expand_vertically(tmp,1,default_value);
-        expand_horizontally_linked_up(tmp,number_of_columns-1,default_value);
+        expand_horizontally_linked_up(tmp,n_horizontal,default_value);
     }
 }
