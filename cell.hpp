@@ -15,7 +15,7 @@ class Cell {
         Cell* up;
         Cell* down;
 
-        Cell();
+        Cell(T default_value = T());
         ~Cell();
         T getElement();
         void setElement(T element);

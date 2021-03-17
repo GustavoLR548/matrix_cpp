@@ -1,11 +1,13 @@
 #include"cell.hpp"
 
 template <typename T>
-Cell<T>::Cell() {
+Cell<T>::Cell(T element) {
     this->left    = nullptr;
     this->right   = nullptr;
     this->up      = nullptr;
     this->down    = nullptr;
+
+    this->element = element;
 }
 
 template <typename T> 
@@ -15,7 +17,6 @@ Cell<T>::~Cell() {
     free(this->up);
     free(this->down);
 }
-
 
 template <typename T>
 T Cell<T>::getElement() {

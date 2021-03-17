@@ -4,15 +4,15 @@
 
 //Constructor 1: no size specified, creating 3x3 matrix
 template <typename T>
-Matrix<T>::Matrix() {
+Matrix<T>::Matrix(T default_value) {
     this->number_of_columns = MIN;
     this->number_of_rows    = MIN;
-    build_matrix();
+    build_matrix(default_value);
 }
 
 //Constructor 2: creating a NxN matrix
 template <typename T>
-Matrix<T>::Matrix(short n) {
+Matrix<T>::Matrix(short n,T default_value) {
     if(n < MIN) {
         n = MIN;
     }
@@ -20,12 +20,12 @@ Matrix<T>::Matrix(short n) {
         this->number_of_columns = this->number_of_rows = n;
     }
 
-    build_matrix();
+    build_matrix(default_value);
 }
 
 //Constructor 3: creating a CxR matrix
 template <typename T>
-Matrix<T>::Matrix(short c, short r) {
+Matrix<T>::Matrix(short c, short r,T default_value) {
 
     if( c < MIN || r < MIN ) {
         if( c < MIN) {
@@ -40,7 +40,7 @@ Matrix<T>::Matrix(short c, short r) {
         this->number_of_rows    = r;
     }
 
-    build_matrix();
+    build_matrix(default_value);
 }
 
 template <typename T> 
@@ -61,35 +61,35 @@ counter Matrix<T>::get_number_of_rows() {
 
 //Creating all linked cells to the first cell of the Matrix
 template <typename T>
-void Matrix<T>::build_matrix() {
+void Matrix<T>::build_matrix(T default_value) {
 
     //Creating the first element
-    this->first = new Cell<T>();
+    this->first = new Cell<T>(default_value);
     Cell<T>* tmp = this->first;
 
     // -1 because the first element was already created
     short r = this->number_of_rows    - 1;
     short c = this->number_of_columns - 1;
 
-    expand_horizontally(tmp,r);
+    expand_horizontally(tmp,r,default_value);
 
     //reset the pointer to link to the first cell
     tmp = this->first;
 
     //Deploy consecutive rows of cells in the Matrix
     for (int i = 0; i < c ;i++) {
-        Cell<T>* tmp2 = expand_vertically(tmp);
-        expand_horizontally_linked_up(tmp2,r);
+        Cell<T>* tmp2 = expand_vertically(tmp,1,default_value);
+        expand_horizontally_linked_up(tmp2,r,default_value);
         tmp = tmp->down;
     }
 }
 
 //Expand the matrix horizontally
 template <typename T>
-void Matrix<T>::expand_horizontally(Cell<T>* c, int n) {
+void Matrix<T>::expand_horizontally(Cell<T>* c, int n,T default_value) {
 
     for(int i = 0 ; i < n; i++) {
-        Cell<T>* tmp = new Cell<T>();
+        Cell<T>* tmp = new Cell<T>(default_value);
 
         c->right  = tmp;
         tmp->left = c;
@@ -101,10 +101,10 @@ void Matrix<T>::expand_horizontally(Cell<T>* c, int n) {
 //Expand the matrix horizontally, and link the same cells
 //to the ones on the top
 template <typename T>
-void Matrix<T>::expand_horizontally_linked_up(Cell<T>* c,int n) {
+void Matrix<T>::expand_horizontally_linked_up(Cell<T>* c,int n,T default_value) {
 
     for(int i = 0; i < n; i++) {
-        Cell<T>* tmp  = new Cell<T>();
+        Cell<T>* tmp  = new Cell<T>(default_value);
 
         //Linking cells horizontally
         c->right = tmp;
@@ -122,10 +122,10 @@ void Matrix<T>::expand_horizontally_linked_up(Cell<T>* c,int n) {
 //Expand the matrix vertically, and return the pointer
 //for the last cell
 template <typename T>
-Cell<T>* Matrix<T>::expand_vertically(Cell<T>* c, int n) {
+Cell<T>* Matrix<T>::expand_vertically(Cell<T>* c, int n,T default_value) {
     Cell<T>* tmp;
     for(int i = 0; i < n; i++) {
-        tmp = new Cell<T>();
+        tmp = new Cell<T>(default_value);
 
         c->down = tmp;
         tmp->up  = c;
@@ -204,7 +204,7 @@ void Matrix<T>::fill(T element) {
 
 //Expand the matrix both vertically and horizontally
 template <typename T>
-void Matrix<T>::expand_matrix(int expanded) {
+void Matrix<T>::expand_matrix(int expanded, T t) {
     expand_matrix_horizontally(expanded);
     expand_matrix_vertically(expanded);
 
@@ -212,7 +212,7 @@ void Matrix<T>::expand_matrix(int expanded) {
 
 //Expand the matrix only horizontally
 template <typename T>
-void Matrix<T>::expand_matrix_horizontally(int expanded) {
+void Matrix<T>::expand_matrix_horizontally(int expanded, T default_value) {
 
     number_of_rows    += expanded;
     Cell<T>* tmp = this->first;
@@ -221,11 +221,11 @@ void Matrix<T>::expand_matrix_horizontally(int expanded) {
     
     Cell<T>* tmp2 = tmp;
 
-    expand_horizontally(tmp2,expanded);
+    expand_horizontally(tmp2,expanded,default_value);
 
     do {
         tmp2 = tmp->down;
-        expand_horizontally_linked_up(tmp2,expanded);
+        expand_horizontally_linked_up(tmp2,expanded,default_value);
     } while(tmp2->down != NULL);
 
     tmp2 = NULL;
@@ -234,7 +234,7 @@ void Matrix<T>::expand_matrix_horizontally(int expanded) {
 
 //Expand the matrix only vertically
 template <typename T>
-void Matrix<T>::expand_matrix_vertically(int expanded) {
+void Matrix<T>::expand_matrix_vertically(int expanded, T default_value) {
 
     number_of_columns += expanded;
     Cell<T>* tmp = this->first;
@@ -242,7 +242,7 @@ void Matrix<T>::expand_matrix_vertically(int expanded) {
     for(/**/; tmp->down != NULL; tmp = tmp->down);
     
     for (int i = 0; i < expanded;i++) {
-        tmp = expand_vertically(tmp);
-        expand_horizontally_linked_up(tmp,number_of_columns-1);
+        tmp = expand_vertically(tmp,1,default_value);
+        expand_horizontally_linked_up(tmp,number_of_columns-1,default_value);
     }
 }
