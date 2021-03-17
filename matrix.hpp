@@ -16,6 +16,13 @@ class Matrix {
         //Atributes
 
         Cell<T>* first;
+
+        T default_value;
+
+        Cell<T>* last_searched_cell;
+        counter last_searched_c;
+        counter last_searched_r;
+
         counter number_of_columns;
         counter number_of_rows;
 
@@ -25,7 +32,7 @@ class Matrix {
         void expand_horizontally(Cell<T>* c, int n = 1,T default_value = T());
         void expand_horizontally_linked_up(Cell<T>* c,int n = 1,T default_value = T());
         Cell<T>* expand_vertically(Cell<T>* c, int n = 1,T default_value = T());
-        Cell<T>* search(int x, int y);
+        Cell<T>* search(int x, int y, Cell<T>* result);
         bool is_outside_matrix(int x,int y);
 
     public: 

@@ -1,10 +1,15 @@
 #include<iostream>
+#include<cstdlib>
 #include"matrix.hpp"
-
 
 //Constructor 1: no size specified, creating 3x3 matrix
 template <typename T>
 Matrix<T>::Matrix(T default_value) {
+    this->default_value = default_value;
+
+    this->last_searched_c = 0;
+    this->last_searched_r = 0;
+
     this->number_of_columns = MIN;
     this->number_of_rows    = MIN;
     build_matrix(default_value);
@@ -13,6 +18,11 @@ Matrix<T>::Matrix(T default_value) {
 //Constructor 2: creating a NxN matrix
 template <typename T>
 Matrix<T>::Matrix(short n,T default_value) {
+    this->default_value = default_value;
+
+    this->last_searched_c = 0;
+    this->last_searched_r = 0;
+
     if(n < MIN) {
         n = MIN;
     }
@@ -26,6 +36,10 @@ Matrix<T>::Matrix(short n,T default_value) {
 //Constructor 3: creating a CxR matrix
 template <typename T>
 Matrix<T>::Matrix(short c, short r,T default_value) {
+    this->default_value = default_value;
+
+    this->last_searched_c = 0;
+    this->last_searched_r = 0;
 
     if( c < MIN || r < MIN ) {
         if( c < MIN) {
@@ -66,6 +80,7 @@ void Matrix<T>::build_matrix(T default_value) {
     //Creating the first element
     this->first = new Cell<T>(default_value);
     Cell<T>* tmp = this->first;
+    this->last_searched_cell = this->first;
 
     // -1 because the first element was already created
     short r = this->number_of_rows    - 1;
@@ -137,11 +152,17 @@ Cell<T>* Matrix<T>::expand_vertically(Cell<T>* c, int n,T default_value) {
 
 //Search the position the cell in the position (x,y)
 template <typename T>
-Cell<T>* Matrix<T>:: search(int x, int y) {
-    Cell<T>* resp = this->first;
+Cell<T>* Matrix<T>:: search(int x, int y, Cell<T>* resp) {
 
-    for(int i = 0; i < y;i++, resp = resp->down);
-    for(int i = 0; i < x;i++, resp = resp->right);
+    if(y < 0) 
+        for(int i = 0; i < abs(y);i++, resp = resp->up);
+    else 
+        for(int i = 0; i < y;i++, resp = resp->down);
+    
+    if(x < 0)
+        for(int i = 0; i < abs(x);i++, resp = resp->left);
+    else 
+        for(int i = 0; i < x;i++, resp = resp->right);
 
     return resp;
 }
@@ -167,12 +188,27 @@ void Matrix<T>::print() {
 //Return a element T in the position (x,y)
 template <typename T>
 T Matrix<T>::get(int x,int y) {
-    T resp;
+    T resp = default_value;
 
     if(is_outside_matrix(x,y)) 
         return resp;
-    
-    resp = search(x,y)->getElement();
+
+    int distance_x = x - this->last_searched_r;
+    int distance_y = y - this->last_searched_c;
+
+    if(abs(distance_x) <= x || abs(distance_y) <= y) {
+        this->last_searched_cell = search(distance_x,distance_y,this->last_searched_cell);
+        resp = this->last_searched_cell->getElement();
+    } else { 
+        Cell<T>* tmp = this->first;
+        this->last_searched_cell = search(x,y,tmp);
+        resp = this->last_searched_cell->getElement();
+    }
+
+    this->last_searched_r = x;
+    this->last_searched_c = y;
+
+    std::cout << this->last_searched_cell->getElement() << std::endl;
 
     return resp;
 }
@@ -183,7 +219,7 @@ bool Matrix<T>::insert(T element,int x,int y) {
     if(is_outside_matrix(x,y)) 
         return false;
 
-    Cell<T>* tmp = search(x,y);
+    Cell<T>* tmp = search(x,y,this->first);
 
     tmp->setElement(element);
 
@@ -194,11 +230,9 @@ bool Matrix<T>::insert(T element,int x,int y) {
 template <typename T> 
 void Matrix<T>::fill(T element) {
 
-
     for(Cell<T>* i = this->first; i != NULL ; i = i->down ) 
         for(Cell<T>* j = i; j != NULL ; j = j->right ) 
             j->setElement(element);
-    
     
 }
 
