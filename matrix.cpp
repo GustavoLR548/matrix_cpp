@@ -208,8 +208,6 @@ T Matrix<T>::get(int x,int y) {
     this->last_searched_r = x;
     this->last_searched_c = y;
 
-    std::cout << this->last_searched_cell->getElement() << std::endl;
-
     return resp;
 }
 
