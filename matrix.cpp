@@ -205,8 +205,8 @@ void Matrix<T>::fill(T element) {
 //Expand the matrix both vertically and horizontally
 template <typename T>
 void Matrix<T>::expand_matrix(int expanded, T t) {
-    expand_matrix_horizontally(expanded);
-    expand_matrix_vertically(expanded);
+    expand_matrix_horizontally(expanded,t);
+    expand_matrix_vertically(expanded,t);
 
 }
 
