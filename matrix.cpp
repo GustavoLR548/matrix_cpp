@@ -50,12 +50,12 @@ Matrix<T>::~Matrix() {
 
 
 template <typename T>
-short Matrix<T>::get_number_of_columns() {
+counter Matrix<T>::get_number_of_columns() {
     return this->number_of_columns;
 }
 
 template <typename T>
-short Matrix<T>::get_number_of_rows() {
+counter Matrix<T>::get_number_of_rows() {
     return this->number_of_rows;
 }
 
