@@ -267,8 +267,6 @@ void Matrix<T>::expand_matrix_horizontally(int expanded, T default_value) {
 //Expand the matrix only vertically
 template <typename T>
 void Matrix<T>::expand_matrix_vertically(int expanded, T default_value) {
-    std::cout << "teste" << std::endl;
-
     number_of_columns += expanded;
     Cell<T>* tmp = this->first;
 
@@ -276,7 +274,7 @@ void Matrix<T>::expand_matrix_vertically(int expanded, T default_value) {
 
     counter n_horizontal;
     if(this->number_of_columns == this->number_of_rows) 
-        n_horizontal = this->number_of_columns - expanded + 1;
+        n_horizontal = this->number_of_columns - expanded;
     else 
         n_horizontal = this->number_of_rows - 1;
     
