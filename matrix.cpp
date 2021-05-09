@@ -153,19 +153,15 @@ Cell<T>* Matrix<T>::expand_vertically(Cell<T>* c, int n,T default_value) {
 template <typename T>
 Cell<T>* Matrix<T>:: search(int x, int y, Cell<T>* resp) {
 
-    int contador = 0;
-
     if(y < 0) 
-        for(int i = 0; i < abs(y);i++, resp = resp->up,contador++);
+        for(int i = 0; i < abs(y);i++, resp = resp->up);
     else 
-        for(int i = 0; i < y;i++, resp = resp->down,contador++);
+        for(int i = 0; i < y;i++, resp = resp->down);
     
     if(x < 0)
-        for(int i = 0; i < abs(x);i++, resp = resp->left,contador++);
+        for(int i = 0; i < abs(x);i++, resp = resp->left);
     else 
-        for(int i = 0; i < x;i++, resp = resp->right,contador++);
-
-    std::cout << "contador: " << contador << std::endl;
+        for(int i = 0; i < x;i++, resp = resp->right);
 
     return resp;
 }
