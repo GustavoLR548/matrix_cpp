@@ -25,7 +25,8 @@ Here is a list of the current operations that are available:
 > * **fill(T element)**: fill all of the Matrix's cells with the value ```element``` 
 > * **expand_matrix(int expanded, T t)**: expand the matrix ```expanded``` number of times, and start the new cells with the value ```t```
 *Obs: if the value ```t``` is not specified, then the value first inserted in the constructor will be the one filled*
-*Obs2: You can also expand the matrix in a single axis using **expand_matrix_vertically** and **expand_matrix_horizontally** using the same arguments as before*
+
+> *Obs2: You can also expand the matrix in a single axis using **expand_matrix_vertically** and **expand_matrix_horizontally** using the same arguments as before*
 
 ## Efficient method of insert and getting elements
 
