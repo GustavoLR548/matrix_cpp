@@ -153,15 +153,19 @@ Cell<T>* Matrix<T>::expand_vertically(Cell<T>* c, int n,T default_value) {
 template <typename T>
 Cell<T>* Matrix<T>:: search(int x, int y, Cell<T>* resp) {
 
+    int contador = 0;
+
     if(y < 0) 
-        for(int i = 0; i < abs(y);i++, resp = resp->up);
+        for(int i = 0; i < abs(y);i++, resp = resp->up,contador++);
     else 
-        for(int i = 0; i < y;i++, resp = resp->down);
+        for(int i = 0; i < y;i++, resp = resp->down,contador++);
     
     if(x < 0)
-        for(int i = 0; i < abs(x);i++, resp = resp->left);
+        for(int i = 0; i < abs(x);i++, resp = resp->left,contador++);
     else 
-        for(int i = 0; i < x;i++, resp = resp->right);
+        for(int i = 0; i < x;i++, resp = resp->right,contador++);
+
+    std::cout << "contador: " << contador << std::endl;
 
     return resp;
 }
@@ -214,11 +218,22 @@ T Matrix<T>::get(int x,int y) {
 template <typename T>
 bool Matrix<T>::insert(T element,int x,int y) {
     if(is_outside_matrix(x,y)) 
-        return false;
+	    return false;
 
-    Cell<T>* tmp = search(x,y,this->first);
+    int distance_x = x - this->last_searched_r;
+    int distance_y = y - this->last_searched_c;
 
-    tmp->setElement(element);
+    if(abs(distance_x) <= x || abs(distance_y) <= y) {
+        this->last_searched_cell = search(distance_x,distance_y,this->last_searched_cell);
+    } else { 
+        Cell<T>* tmp = this->first;
+        this->last_searched_cell = search(x,y,tmp);
+    }
+
+    this->last_searched_r = x;
+    this->last_searched_c = y;
+
+    this->last_searched_cell->setElement(element);
 
     return true;
 }
