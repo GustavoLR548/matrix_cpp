@@ -39,6 +39,8 @@ Here is a basic demonstration of its use:
 *Obs: the ```contador``` is how many cells it has traversed to insert a new element*
 
 ```
+Without the method
+
 contador: 1
 contador: 1
 contador: 2
@@ -73,6 +75,8 @@ Matrix
 0 0 0 0 0 1 0 0 1 0 
 0 0 0 0 0 1 0 1 0 1 
 0 0 0 0 0 0 0 0 1 0 
+
+Applying the method
 
 contador: 1
 contador: 2
@@ -110,4 +114,5 @@ Matrix
 0 0 0 0 0 0 0 0 1 0 
 ```
 
-Notice that, both resulting matrixes are the same, but the number of movements necessary to insert every element into the matrix is lower.
+Notice that, both resulting matrixes are the same, but the number of movements 
+necessary to insert every element into the matrix is lower.
