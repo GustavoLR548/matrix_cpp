@@ -39,6 +39,8 @@ class Matrix {
 
         //Constructors
         
+        Matrix() = default;
+        
         Matrix(T default_value = T());
         Matrix(short n, T default_value = T());
         Matrix(short c, short r, T default_value= T());
