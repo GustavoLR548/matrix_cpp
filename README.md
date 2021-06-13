@@ -30,7 +30,7 @@ Here is a list of the current operations that are available:
 
 ## Efficient method of insert and getting elements
 
-Traversing a matrix might be a costing method, especially if your matrix is large. For this reason, I tried making a efficient way of traversing the matrix, and lowering the cost necessary to get the components for the operations. 
+Traversing a matrix might be a costly method, especially if your matrix is large. For this reason, I tried making a efficient way of traversing the matrix, and lowering the cost necessary to get the components for the operations. 
 
 Basically, whenever the user makes an operation, it stores the position of the searched cell, so that it can use it for next operations, if traversing the matrix with the previously searched cell is cheaper, then the matrix will use it, if not, then it will use the first cell in the matrix.
 
