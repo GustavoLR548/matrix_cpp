@@ -114,5 +114,5 @@ Matrix
 0 0 0 0 0 0 0 0 1 0 
 ```
 
-Notice that, both resulting matrixes are the same, but the number of movements 
-necessary to insert every element into the matrix is lower.
+Notice that, both resulting matrixes are the same, but the cost for inserting
+every element into the matrix is cheaper.
