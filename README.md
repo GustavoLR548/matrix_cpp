@@ -4,7 +4,7 @@ An implementation of a expandable matrix in C++
 ![escudo2](https://img.shields.io/badge/license-MIT-green) ![escudo](https://img.shields.io/badge/build-passing-brightgreen)
 
 The ideia to create this project arised when I started to work with my implementation of graphs in C++. When working with graphs,
-the most know options to store information about graphs are: Matrix and Lists. So.. I decided to implement my own method do make 
+the most know options to store information about graphs are: Matrix and Lists. So.. I decided to implement my own method to make 
 a flexible Matrix in C++, while also making the basic operations very cheap.
 
 Here is a list of the current operations that are available:
