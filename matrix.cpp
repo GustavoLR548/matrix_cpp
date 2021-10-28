@@ -58,17 +58,17 @@ Matrix<T>::Matrix(short c, short r,T default_value) {
 
 template <typename T> 
 Matrix<T>::~Matrix() {
-    free(this->first);
+    delete this->first;
 }
 
 
 template <typename T>
-counter Matrix<T>::get_number_of_columns() {
+size_t Matrix<T>::get_number_of_columns() {
     return this->number_of_columns;
 }
 
 template <typename T>
-counter Matrix<T>::get_number_of_rows() {
+size_t Matrix<T>::get_number_of_rows() {
     return this->number_of_rows;
 }
 
@@ -186,6 +186,13 @@ void Matrix<T>::print() {
 
 //Return a element T in the position (x,y)
 template <typename T>
+T Matrix<T>::operator()(int x, int y) {
+    return this->get(x,y);    
+}
+
+
+//Return a element T in the position (x,y)
+template <typename T>
 T Matrix<T>::get(int x,int y) {
     T resp = default_value;
 
@@ -283,7 +290,7 @@ void Matrix<T>::expand_matrix_vertically(int expanded, T default_value) {
 
     for(/**/; tmp->down != NULL; tmp = tmp->down);
 
-    counter n_horizontal;
+    size_t n_horizontal;
     if(this->number_of_columns == this->number_of_rows) 
         n_horizontal = this->number_of_columns - expanded;
     else 

@@ -4,9 +4,7 @@
 #include"cell.cpp"
 #include<stdint.h>
 
-int const MIN = 2;
-
-using counter = uint16_t;
+#define MIN 2
 
 template <typename T>
 class Matrix {
@@ -20,11 +18,11 @@ class Matrix {
         T default_value;
 
         Cell<T>* last_searched_cell;
-        counter last_searched_c;
-        counter last_searched_r;
+        size_t last_searched_c;
+        size_t last_searched_r;
 
-        counter number_of_columns;
-        counter number_of_rows;
+        size_t number_of_columns;
+        size_t number_of_rows;
 
         //Inside functions
 
@@ -51,14 +49,15 @@ class Matrix {
 
         //Get
 
-        counter get_number_of_columns();
-        counter get_number_of_rows();
+        size_t get_number_of_columns();
+        size_t get_number_of_rows();
 
         //Basic functionalities of the Matrix
 
         void print();
         void fill(T value);
         T get(int x,int y);
+        T operator()(int x,int y);
         bool insert(T element,int x,int y);
         void expand_matrix(int expanded, T default_value = T());
         void expand_matrix_horizontally(int expanded, T default_value = T());

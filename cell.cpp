@@ -1,5 +1,7 @@
 #include"cell.hpp"
 
+#include<iostream>
+
 template <typename T>
 Cell<T>::Cell(T element) {
     this->left    = nullptr;
@@ -12,10 +14,14 @@ Cell<T>::Cell(T element) {
 
 template <typename T> 
 Cell<T>::~Cell() {
-    free(this->left);
-    free(this->right);
-    free(this->up);
-    free(this->down);
+    if(!left) 
+        delete left;
+    if(!right) 
+        delete right;
+    if(!up) 
+        delete up;
+    if(!down) 
+        delete down;
 }
 
 template <typename T>
